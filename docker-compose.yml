@@ -1,0 +1,42 @@
+name: inyminutes
+
+networks:
+  coolify:
+    external: true
+
+services:
+  web:
+    build: .
+    container_name: inyminutes-web
+    restart: unless-stopped
+    networks:
+      - coolify
+    labels:
+      - traefik.enable=true
+
+      # HTTP routers (redirect to HTTPS)
+      - traefik.http.routers.inyminutes-http-root.rule=Host(`inyminutes.com`) || Host(`www.inyminutes.com`)
+      - traefik.http.routers.inyminutes-http-root.entrypoints=http
+      - traefik.http.routers.inyminutes-http-root.middlewares=inyminutes-https
+
+      - traefik.http.routers.inyminutes-http-sub.rule=Host(`python.inyminutes.com`) || Host(`javascript.inyminutes.com`) || Host(`rust.inyminutes.com`) || Host(`swift.inyminutes.com`) || Host(`go.inyminutes.com`) || Host(`java.inyminutes.com`) || Host(`cpp.inyminutes.com`) || Host(`ruby.inyminutes.com`) || Host(`php.inyminutes.com`) || Host(`csharp.inyminutes.com`)
+      - traefik.http.routers.inyminutes-http-sub.entrypoints=http
+      - traefik.http.routers.inyminutes-http-sub.middlewares=inyminutes-https
+
+      # HTTPS routers
+      - traefik.http.routers.inyminutes-https-root.rule=Host(`inyminutes.com`) || Host(`www.inyminutes.com`)
+      - traefik.http.routers.inyminutes-https-root.entrypoints=https
+      - traefik.http.routers.inyminutes-https-root.tls=true
+      - traefik.http.routers.inyminutes-https-root.tls.certresolver=letsencrypt
+
+      - traefik.http.routers.inyminutes-https-sub.rule=Host(`python.inyminutes.com`) || Host(`javascript.inyminutes.com`) || Host(`rust.inyminutes.com`) || Host(`swift.inyminutes.com`) || Host(`go.inyminutes.com`) || Host(`java.inyminutes.com`) || Host(`cpp.inyminutes.com`) || Host(`ruby.inyminutes.com`) || Host(`php.inyminutes.com`) || Host(`csharp.inyminutes.com`)
+      - traefik.http.routers.inyminutes-https-sub.entrypoints=https
+      - traefik.http.routers.inyminutes-https-sub.tls=true
+      - traefik.http.routers.inyminutes-https-sub.tls.certresolver=letsencrypt
+
+      # Middleware
+      - traefik.http.middlewares.inyminutes-https.redirectscheme.scheme=https
+      - traefik.http.middlewares.inyminutes-https.redirectscheme.permanent=true
+
+      # Service
+      - traefik.http.services.inyminutes.loadbalancer.server.port=80

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn Python in Minutes — inyminutes.com</title>
+    <meta name="description" content="Learn Python in minutes. Variables, functions, classes, list comprehensions, and more — practical examples you can copy and run.">
+    <link rel="canonical" href="https://python.inyminutes.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+        :root{--bg:#0a0a12;--bg-alt:#0f0f1a;--bg-card:#14141f;--text:#f0f0f5;--text-2:#9a9ab0;--text-3:#6b6b80;--accent:#f6851f;--accent-hover:#ff9a3c;--border:#1e1e2e;--blue:#6b8afd;--green:#34d399}
+        html{scroll-behavior:smooth}
+        body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+        nav{position:fixed;top:0;width:100%;z-index:100;padding:1rem 2rem;background:rgba(10,10,18,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+        .nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}
+        .logo{font-size:1.2rem;font-weight:800;letter-spacing:-0.5px;text-decoration:none;color:var(--text)}
+        .logo span{color:var(--accent)}
+        .nav-links{display:flex;gap:1.5rem;align-items:center}
+        .nav-links a{color:var(--text-2);text-decoration:none;font-size:0.85rem;font-weight:500;transition:color 0.2s}
+        .nav-links a:hover{color:var(--text)}
+        .container{max-width:960px;margin:0 auto;padding:0 2rem}
+        .hero{text-align:center;padding:8rem 2rem 2rem;position:relative}
+        .hero::before{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(246,133,31,0.07) 0%,transparent 65%);pointer-events:none}
+        .hero .badge{display:inline-block;padding:0.3rem 0.85rem;background:rgba(55,118,171,0.12);color:#60a5fa;font-size:0.75rem;font-weight:600;border-radius:20px;margin-bottom:1rem}
+        .hero h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;line-height:1.15;letter-spacing:-1.5px;margin-bottom:1rem}
+        .hero h1 em{font-style:normal;color:var(--accent)}
+        .hero .subtitle{font-size:1.05rem;color:var(--text-2);max-width:600px;margin:0 auto;line-height:1.65}
+        .progress-nav{position:sticky;top:60px;z-index:50;background:var(--bg-alt);border-bottom:1px solid var(--border);padding:0.75rem 0;margin-bottom:2rem}
+        .progress-inner{max-width:960px;margin:0 auto;padding:0 2rem;display:flex;gap:0.4rem;overflow-x:auto;scrollbar-width:none}
+        .progress-inner::-webkit-scrollbar{display:none}
+        .progress-inner a{color:var(--text-3);text-decoration:none;font-size:0.7rem;font-weight:600;padding:0.3rem 0.65rem;border-radius:4px;white-space:nowrap;transition:all 0.2s;border:1px solid transparent}
+        .progress-inner a:hover{color:var(--text);background:var(--bg-card);border-color:var(--border)}
+        .article{padding-bottom:4rem}
+        .section{margin-bottom:3.5rem}
+        .section h2{font-size:1.5rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}
+        .section h2 .num{color:var(--accent);font-size:0.85rem;font-weight:600;margin-right:0.5rem}
+        .section h3{font-size:1.1rem;font-weight:600;margin:1.5rem 0 0.75rem;color:var(--text)}
+        .section p{color:var(--text-2);font-size:0.92rem;line-height:1.7;margin-bottom:1rem}
+        .section ul,.section ol{color:var(--text-2);font-size:0.92rem;line-height:1.7;margin-bottom:1rem;padding-left:1.5rem}
+        .section li{margin-bottom:0.35rem}
+        .section code{font-family:'JetBrains Mono',monospace;font-size:0.82rem;background:var(--bg-card);padding:0.15rem 0.45rem;border-radius:4px;color:#ffa657;border:1px solid var(--border)}
+        .section strong{color:var(--text);font-weight:600}
+        .code-block{position:relative;margin:1rem 0 1.5rem}
+        .code-block pre{background:#0d1117;border:1px solid var(--border);border-radius:8px;padding:1rem;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:1.6;color:#e6edf3}
+        .code-block .copy-btn{position:absolute;top:0.5rem;right:0.5rem;background:var(--bg-card);border:1px solid var(--border);color:var(--text-3);padding:0.25rem 0.6rem;border-radius:4px;font-size:0.7rem;cursor:pointer;font-family:inherit;transition:all 0.2s}
+        .code-block .copy-btn:hover{color:var(--text);border-color:var(--text-3)}
+        .kw{color:#ff7b72}.str{color:#a5d6ff}.typ{color:#ffa657}.cmt{color:#8b949e}.fn{color:#d2a8ff}.num{color:#79c0ff}.op{color:#ff7b72}.dec{color:#79c0ff}
+        .info-box{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;margin:1rem 0 1.5rem;border-left:3px solid var(--blue)}
+        .info-box p{margin-bottom:0;color:var(--text-2);font-size:0.88rem}
+        .cheatsheet-table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.88rem}
+        .cheatsheet-table th{text-align:left;padding:0.75rem 1rem;background:var(--bg-card);border:1px solid var(--border);color:var(--text);font-weight:600;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px}
+        .cheatsheet-table td{padding:0.6rem 1rem;border:1px solid var(--border);color:var(--text-2);vertical-align:top}
+        .cheatsheet-table td code{font-family:'JetBrains Mono',monospace;font-size:0.8rem;background:#0d1117;padding:0.15rem 0.4rem;border-radius:3px;color:#ffa657;border:1px solid var(--border)}
+        .cheatsheet-table tr:hover td{background:var(--bg-card)}
+        .cta-section{text-align:center;padding:3rem 2rem 4rem;border-top:1px solid var(--border);margin-top:2rem}
+        .cta-section h3{font-size:1.3rem;font-weight:700;margin-bottom:0.5rem}
+        .cta-section p{color:var(--text-2);font-size:0.95rem;margin-bottom:1.5rem}
+        footer{border-top:1px solid var(--border);padding:2.5rem 2rem}
+        .footer-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}
+        .footer-inner p{color:var(--text-3);font-size:0.8rem}
+        .footer-links{display:flex;gap:1.25rem}
+        .footer-links a{color:var(--text-3);text-decoration:none;font-size:0.8rem;transition:color 0.2s}
+        .footer-links a:hover{color:var(--text-2)}
+        @media(max-width:768px){.nav-links{display:none}.hero{padding-top:6rem}.progress-nav{top:53px}.section h2{font-size:1.3rem}}
+    </style>
+</head>
+<body>
+
+<nav><div class="nav-inner">
+    <a href="https://inyminutes.com" class="logo">in<span>y</span>minutes</a>
+    <div class="nav-links">
+        <a href="https://inyminutes.com">All Tutorials</a>
+    </div>
+</div></nav>
+
+<section class="hero"><div class="container">
+    <div class="badge">~10 min read</div>
+    <h1>Learn <em>Python</em> in Minutes</h1>
+    <p class="subtitle">Variables, functions, classes, list comprehensions, and everything you need to start building with Python.</p>
+</div></section>
+
+<div class="progress-nav"><div class="progress-inner">
+    <a href="#intro">What is Python?</a>
+    <a href="#setup">Setup</a>
+    <a href="#variables">Variables</a>
+    <a href="#collections">Collections</a>
+    <a href="#control-flow">Control Flow</a>
+    <a href="#functions">Functions</a>
+    <a href="#classes">Classes</a>
+    <a href="#comprehensions">Comprehensions</a>
+    <a href="#errors">Error Handling</a>
+    <a href="#cheatsheet">Cheatsheet</a>
+</div></div>
+
+<div class="container"><article class="article">
+
+<section class="section" id="intro">
+    <h2><span class="num">01</span> What is Python?</h2>
+    <p><strong>Python is a dynamically-typed, interpreted language</strong> known for its clean syntax and massive ecosystem. It's the #1 language for data science, machine learning, scripting, and a top choice for web backends.</p>
+    <ul>
+        <li><strong>Readable</strong> &mdash; indentation-based syntax enforces clean code.</li>
+        <li><strong>Batteries included</strong> &mdash; rich standard library for files, HTTP, JSON, regex, and more.</li>
+        <li><strong>Huge ecosystem</strong> &mdash; 500k+ packages on PyPI.</li>
+    </ul>
+    <div class="code-block"><pre><span class="cmt"># Python reads like pseudocode</span>
+<span class="kw">for</span> name <span class="kw">in</span> [<span class="str">"Alice"</span>, <span class="str">"Bob"</span>, <span class="str">"Charlie"</span>]:
+    <span class="kw">if</span> <span class="fn">len</span>(name) > <span class="num">3</span>:
+        <span class="fn">print</span>(<span class="str">f"Hello, <span class="op">{</span>name<span class="op">}</span>!"</span>)</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="setup">
+    <h2><span class="num">02</span> Setup</h2>
+    <div class="code-block"><pre><span class="cmt"># Check Python version</span>
+python3 --version
+
+<span class="cmt"># Create a virtual environment</span>
+python3 -m venv myproject
+<span class="kw">source</span> myproject/bin/activate
+
+<span class="cmt"># Install packages</span>
+pip install requests flask numpy
+
+<span class="cmt"># Run a script</span>
+python3 app.py</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="info-box"><p><strong>Tip:</strong> Always use a virtual environment. It keeps your project dependencies isolated from the system Python.</p></div>
+</section>
+
+<section class="section" id="variables">
+    <h2><span class="num">03</span> Variables &amp; Data Types</h2>
+    <p>Python is dynamically typed &mdash; you don't declare types, the interpreter infers them.</p>
+    <div class="code-block"><pre><span class="cmt"># Strings</span>
+name = <span class="str">"Alice"</span>
+greeting = <span class="str">f"Hello, <span class="op">{</span>name<span class="op">}</span>!"</span>     <span class="cmt"># f-strings (Python 3.6+)</span>
+multiline = <span class="str">"""Line one
+Line two"""</span>
+
+<span class="cmt"># Numbers</span>
+age = <span class="num">30</span>                  <span class="cmt"># int (arbitrary precision)</span>
+price = <span class="num">19.99</span>             <span class="cmt"># float</span>
+big = <span class="num">1_000_000</span>           <span class="cmt"># underscores for readability</span>
+
+<span class="cmt"># Booleans &amp; None</span>
+is_active = <span class="num">True</span>
+is_admin = <span class="num">False</span>
+result = <span class="num">None</span>             <span class="cmt"># Python's null</span>
+
+<span class="cmt"># Type checking</span>
+<span class="fn">type</span>(name)                <span class="cmt"># &lt;class 'str'&gt;</span>
+<span class="fn">isinstance</span>(age, <span class="typ">int</span>)    <span class="cmt"># True</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>Type Conversions</h3>
+    <div class="code-block"><pre><span class="fn">int</span>(<span class="str">"42"</span>)        <span class="cmt"># 42</span>
+<span class="fn">float</span>(<span class="str">"3.14"</span>)    <span class="cmt"># 3.14</span>
+<span class="fn">str</span>(<span class="num">100</span>)         <span class="cmt"># "100"</span>
+<span class="fn">bool</span>(<span class="num">0</span>)          <span class="cmt"># False  (0, "", [], None are falsy)</span>
+<span class="fn">list</span>(<span class="str">"abc"</span>)      <span class="cmt"># ["a", "b", "c"]</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="collections">
+    <h2><span class="num">04</span> Collections</h2>
+
+    <h3>Lists (mutable, ordered)</h3>
+    <div class="code-block"><pre>fruits = [<span class="str">"apple"</span>, <span class="str">"banana"</span>, <span class="str">"cherry"</span>]
+fruits.<span class="fn">append</span>(<span class="str">"date"</span>)        <span class="cmt"># Add to end</span>
+fruits.<span class="fn">insert</span>(<span class="num">0</span>, <span class="str">"avocado"</span>) <span class="cmt"># Insert at index</span>
+fruits.<span class="fn">pop</span>()                  <span class="cmt"># Remove &amp; return last</span>
+
+<span class="cmt"># Slicing: list[start:stop:step]</span>
+fruits[<span class="num">1</span>:<span class="num">3</span>]                  <span class="cmt"># ["banana", "cherry"]</span>
+fruits[::<span class="num">-1</span>]                  <span class="cmt"># Reversed copy</span>
+
+<span class="cmt"># Useful methods</span>
+<span class="fn">len</span>(fruits)                   <span class="cmt"># Length</span>
+<span class="fn">sorted</span>(fruits)                <span class="cmt"># New sorted list</span>
+<span class="str">"apple"</span> <span class="kw">in</span> fruits            <span class="cmt"># True (membership test)</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>Dictionaries (mutable, key-value pairs)</h3>
+    <div class="code-block"><pre>user = {
+    <span class="str">"name"</span>: <span class="str">"Alice"</span>,
+    <span class="str">"age"</span>: <span class="num">30</span>,
+    <span class="str">"email"</span>: <span class="str">"alice@example.com"</span>
+}
+
+user[<span class="str">"name"</span>]                 <span class="cmt"># "Alice"</span>
+user.<span class="fn">get</span>(<span class="str">"phone"</span>, <span class="str">"N/A"</span>)    <span class="cmt"># "N/A" (default if missing)</span>
+user[<span class="str">"role"</span>] = <span class="str">"admin"</span>       <span class="cmt"># Add/update key</span>
+<span class="kw">del</span> user[<span class="str">"email"</span>]             <span class="cmt"># Remove key</span>
+
+<span class="cmt"># Iteration</span>
+<span class="kw">for</span> key, value <span class="kw">in</span> user.<span class="fn">items</span>():
+    <span class="fn">print</span>(<span class="str">f"<span class="op">{</span>key<span class="op">}</span>: <span class="op">{</span>value<span class="op">}</span>"</span>)</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>Tuples &amp; Sets</h3>
+    <div class="code-block"><pre><span class="cmt"># Tuples (immutable)</span>
+point = (<span class="num">10</span>, <span class="num">20</span>)
+x, y = point                 <span class="cmt"># Unpacking</span>
+
+<span class="cmt"># Sets (unique, unordered)</span>
+tags = {<span class="str">"python"</span>, <span class="str">"web"</span>, <span class="str">"api"</span>}
+tags.<span class="fn">add</span>(<span class="str">"flask"</span>)
+tags.<span class="fn">discard</span>(<span class="str">"web"</span>)
+
+a = {<span class="num">1</span>, <span class="num">2</span>, <span class="num">3</span>}
+b = {<span class="num">2</span>, <span class="num">3</span>, <span class="num">4</span>}
+a | b                         <span class="cmt"># {1, 2, 3, 4}  union</span>
+a &amp; b                         <span class="cmt"># {2, 3}        intersection</span>
+a - b                         <span class="cmt"># {1}           difference</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="control-flow">
+    <h2><span class="num">05</span> Control Flow</h2>
+    <div class="code-block"><pre><span class="cmt"># if / elif / else</span>
+score = <span class="num">85</span>
+<span class="kw">if</span> score >= <span class="num">90</span>:
+    grade = <span class="str">"A"</span>
+<span class="kw">elif</span> score >= <span class="num">80</span>:
+    grade = <span class="str">"B"</span>
+<span class="kw">else</span>:
+    grade = <span class="str">"C"</span>
+
+<span class="cmt"># for loops</span>
+<span class="kw">for</span> i <span class="kw">in</span> <span class="fn">range</span>(<span class="num">5</span>):            <span class="cmt"># 0, 1, 2, 3, 4</span>
+    <span class="fn">print</span>(i)
+
+<span class="kw">for</span> i, fruit <span class="kw">in</span> <span class="fn">enumerate</span>(fruits):
+    <span class="fn">print</span>(<span class="str">f"<span class="op">{</span>i<span class="op">}</span>: <span class="op">{</span>fruit<span class="op">}</span>"</span>)
+
+<span class="cmt"># while loops</span>
+count = <span class="num">0</span>
+<span class="kw">while</span> count &lt; <span class="num">5</span>:
+    count += <span class="num">1</span>
+
+<span class="cmt"># Ternary expression</span>
+status = <span class="str">"adult"</span> <span class="kw">if</span> age >= <span class="num">18</span> <span class="kw">else</span> <span class="str">"minor"</span>
+
+<span class="cmt"># Match statement (Python 3.10+)</span>
+<span class="kw">match</span> command:
+    <span class="kw">case</span> <span class="str">"quit"</span>:
+        <span class="fn">exit</span>()
+    <span class="kw">case</span> <span class="str">"hello"</span>:
+        <span class="fn">print</span>(<span class="str">"Hi!"</span>)
+    <span class="kw">case</span> _:
+        <span class="fn">print</span>(<span class="str">"Unknown"</span>)</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="functions">
+    <h2><span class="num">06</span> Functions</h2>
+    <div class="code-block"><pre><span class="cmt"># Basic function</span>
+<span class="kw">def</span> <span class="fn">greet</span>(name, greeting=<span class="str">"Hello"</span>):
+    <span class="kw">return</span> <span class="str">f"<span class="op">{</span>greeting<span class="op">}</span>, <span class="op">{</span>name<span class="op">}</span>!"</span>
+
+<span class="fn">greet</span>(<span class="str">"Alice"</span>)                   <span class="cmt"># "Hello, Alice!"</span>
+<span class="fn">greet</span>(<span class="str">"Bob"</span>, greeting=<span class="str">"Hey"</span>)   <span class="cmt"># "Hey, Bob!"</span>
+
+<span class="cmt"># *args and **kwargs</span>
+<span class="kw">def</span> <span class="fn">log</span>(*args, **kwargs):
+    <span class="fn">print</span>(<span class="str">"Args:"</span>, args)          <span class="cmt"># Tuple of positional args</span>
+    <span class="fn">print</span>(<span class="str">"Kwargs:"</span>, kwargs)      <span class="cmt"># Dict of keyword args</span>
+
+<span class="fn">log</span>(<span class="num">1</span>, <span class="num">2</span>, key=<span class="str">"value"</span>)
+
+<span class="cmt"># Lambda (anonymous functions)</span>
+double = <span class="kw">lambda</span> x: x * <span class="num">2</span>
+<span class="fn">sorted</span>(users, key=<span class="kw">lambda</span> u: u[<span class="str">"age"</span>])
+
+<span class="cmt"># Type hints (optional but recommended)</span>
+<span class="kw">def</span> <span class="fn">add</span>(a: <span class="typ">int</span>, b: <span class="typ">int</span>) -> <span class="typ">int</span>:
+    <span class="kw">return</span> a + b</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>Decorators</h3>
+    <div class="code-block"><pre><span class="kw">import</span> time
+
+<span class="kw">def</span> <span class="fn">timer</span>(func):
+    <span class="kw">def</span> <span class="fn">wrapper</span>(*args, **kwargs):
+        start = time.<span class="fn">time</span>()
+        result = <span class="fn">func</span>(*args, **kwargs)
+        <span class="fn">print</span>(<span class="str">f"<span class="op">{</span>func.__name__<span class="op">}</span> took <span class="op">{</span>time.<span class="fn">time</span>()-start:.2f<span class="op">}</span>s"</span>)
+        <span class="kw">return</span> result
+    <span class="kw">return</span> wrapper
+
+<span class="dec">@timer</span>
+<span class="kw">def</span> <span class="fn">slow_function</span>():
+    time.<span class="fn">sleep</span>(<span class="num">1</span>)
+    <span class="kw">return</span> <span class="str">"done"</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="classes">
+    <h2><span class="num">07</span> Classes &amp; OOP</h2>
+    <div class="code-block"><pre><span class="kw">class</span> <span class="typ">User</span>:
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, name: <span class="typ">str</span>, age: <span class="typ">int</span>):
+        self.name = name
+        self.age = age
+
+    <span class="kw">def</span> <span class="fn">greet</span>(self) -> <span class="typ">str</span>:
+        <span class="kw">return</span> <span class="str">f"Hi, I'm <span class="op">{</span>self.name<span class="op">}</span>"</span>
+
+    <span class="kw">def</span> <span class="fn">__repr__</span>(self):
+        <span class="kw">return</span> <span class="str">f"User(<span class="op">{</span>self.name!r<span class="op">}</span>, <span class="op">{</span>self.age<span class="op">}</span>)"</span>
+
+alice = <span class="typ">User</span>(<span class="str">"Alice"</span>, <span class="num">30</span>)
+alice.<span class="fn">greet</span>()   <span class="cmt"># "Hi, I'm Alice"</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>Inheritance &amp; Properties</h3>
+    <div class="code-block"><pre><span class="kw">class</span> <span class="typ">Admin</span>(<span class="typ">User</span>):
+    <span class="kw">def</span> <span class="fn">__init__</span>(self, name, age, permissions):
+        <span class="fn">super</span>().<span class="fn">__init__</span>(name, age)
+        self._permissions = permissions
+
+    <span class="dec">@property</span>
+    <span class="kw">def</span> <span class="fn">permissions</span>(self):
+        <span class="kw">return</span> self._permissions.<span class="fn">copy</span>()
+
+admin = <span class="typ">Admin</span>(<span class="str">"Bob"</span>, <span class="num">35</span>, [<span class="str">"read"</span>, <span class="str">"write"</span>])
+admin.permissions   <span class="cmt"># ["read", "write"]</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="comprehensions">
+    <h2><span class="num">08</span> Comprehensions &amp; Generators</h2>
+    <div class="code-block"><pre><span class="cmt"># List comprehension</span>
+squares = [x**<span class="num">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="num">10</span>)]
+evens = [x <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="num">20</span>) <span class="kw">if</span> x % <span class="num">2</span> == <span class="num">0</span>]
+
+<span class="cmt"># Dict comprehension</span>
+word_lengths = {w: <span class="fn">len</span>(w) <span class="kw">for</span> w <span class="kw">in</span> [<span class="str">"hello"</span>, <span class="str">"world"</span>]}
+<span class="cmt"># {"hello": 5, "world": 5}</span>
+
+<span class="cmt"># Set comprehension</span>
+unique_lengths = {<span class="fn">len</span>(w) <span class="kw">for</span> w <span class="kw">in</span> [<span class="str">"hi"</span>, <span class="str">"hey"</span>, <span class="str">"ho"</span>]}
+
+<span class="cmt"># Generator expression (lazy, memory-efficient)</span>
+total = <span class="fn">sum</span>(x**<span class="num">2</span> <span class="kw">for</span> x <span class="kw">in</span> <span class="fn">range</span>(<span class="num">1_000_000</span>))
+
+<span class="cmt"># Generator function</span>
+<span class="kw">def</span> <span class="fn">fibonacci</span>():
+    a, b = <span class="num">0</span>, <span class="num">1</span>
+    <span class="kw">while</span> <span class="num">True</span>:
+        <span class="kw">yield</span> a
+        a, b = b, a + b
+
+fib = <span class="fn">fibonacci</span>()
+[<span class="fn">next</span>(fib) <span class="kw">for</span> _ <span class="kw">in</span> <span class="fn">range</span>(<span class="num">8</span>)]  <span class="cmt"># [0, 1, 1, 2, 3, 5, 8, 13]</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="errors">
+    <h2><span class="num">09</span> Error Handling</h2>
+    <div class="code-block"><pre><span class="kw">try</span>:
+    result = <span class="num">10</span> / <span class="num">0</span>
+<span class="kw">except</span> <span class="typ">ZeroDivisionError</span> <span class="kw">as</span> e:
+    <span class="fn">print</span>(<span class="str">f"Error: <span class="op">{</span>e<span class="op">}</span>"</span>)
+<span class="kw">except</span> (<span class="typ">TypeError</span>, <span class="typ">ValueError</span>):
+    <span class="fn">print</span>(<span class="str">"Type or value error"</span>)
+<span class="kw">else</span>:
+    <span class="fn">print</span>(<span class="str">"No errors!"</span>)         <span class="cmt"># Runs if no exception</span>
+<span class="kw">finally</span>:
+    <span class="fn">print</span>(<span class="str">"Always runs"</span>)
+
+<span class="cmt"># Custom exceptions</span>
+<span class="kw">class</span> <span class="typ">NotFoundError</span>(<span class="typ">Exception</span>):
+    <span class="kw">pass</span>
+
+<span class="kw">def</span> <span class="fn">find_user</span>(user_id):
+    <span class="kw">if</span> user_id <span class="kw">not in</span> database:
+        <span class="kw">raise</span> <span class="typ">NotFoundError</span>(<span class="str">f"User <span class="op">{</span>user_id<span class="op">}</span> not found"</span>)
+
+<span class="cmt"># Context managers (auto-cleanup)</span>
+<span class="kw">with</span> <span class="fn">open</span>(<span class="str">"data.txt"</span>, <span class="str">"r"</span>) <span class="kw">as</span> f:
+    content = f.<span class="fn">read</span>()
+<span class="cmt"># File is automatically closed here</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="cheatsheet">
+    <h2><span class="num">10</span> Cheatsheet</h2>
+    <table class="cheatsheet-table">
+        <thead><tr><th>Pattern</th><th>Syntax</th><th>Description</th></tr></thead>
+        <tbody>
+            <tr><td>Variable</td><td><code>x = 42</code></td><td>Dynamic typing, no declaration needed</td></tr>
+            <tr><td>F-string</td><td><code>f"Hello {name}"</code></td><td>String interpolation (3.6+)</td></tr>
+            <tr><td>List</td><td><code>[1, 2, 3]</code></td><td>Mutable ordered sequence</td></tr>
+            <tr><td>Dict</td><td><code>{"key": "val"}</code></td><td>Key-value mapping</td></tr>
+            <tr><td>Tuple</td><td><code>(1, 2, 3)</code></td><td>Immutable sequence</td></tr>
+            <tr><td>Set</td><td><code>{1, 2, 3}</code></td><td>Unique unordered values</td></tr>
+            <tr><td>Slice</td><td><code>lst[1:3]</code></td><td>Subsequence from index 1 to 2</td></tr>
+            <tr><td>Comprehension</td><td><code>[x*2 for x in lst]</code></td><td>Build list from expression</td></tr>
+            <tr><td>Lambda</td><td><code>lambda x: x+1</code></td><td>Anonymous function</td></tr>
+            <tr><td>Unpack</td><td><code>a, *rest = lst</code></td><td>Destructure iterable</td></tr>
+            <tr><td>Walrus</td><td><code>if (n := len(a)) > 5:</code></td><td>Assignment expression (3.8+)</td></tr>
+            <tr><td>Type hint</td><td><code>def f(x: int) -> str:</code></td><td>Optional type annotations</td></tr>
+            <tr><td>Decorator</td><td><code>@my_decorator</code></td><td>Wrap function with another</td></tr>
+            <tr><td>Property</td><td><code>@property</code></td><td>Getter/setter as attribute</td></tr>
+            <tr><td>Dataclass</td><td><code>@dataclass</code></td><td>Auto __init__, __repr__, etc.</td></tr>
+            <tr><td>With</td><td><code>with open(f) as x:</code></td><td>Context manager (auto cleanup)</td></tr>
+            <tr><td>Yield</td><td><code>yield value</code></td><td>Generator function</td></tr>
+            <tr><td>Match</td><td><code>match x: case 1:</code></td><td>Pattern matching (3.10+)</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section class="section" id="next-steps">
+    <h2><span class="num">11</span> Next Steps</h2>
+    <ul>
+        <li><strong>Build something</strong> &mdash; a CLI tool, a Flask API, or a data analysis script.</li>
+        <li><strong>Standard library</strong> &mdash; explore <code>pathlib</code>, <code>json</code>, <code>itertools</code>, <code>collections</code>.</li>
+        <li><strong>Async Python</strong> &mdash; learn <code>asyncio</code> for concurrent I/O operations.</li>
+        <li><strong>Testing</strong> &mdash; write tests with <code>pytest</code>.</li>
+    </ul>
+    <div class="info-box"><p><strong>Explore more:</strong> Check out tutorials for <a href="https://javascript.inyminutes.com" style="color:var(--blue)">JavaScript</a>, <a href="https://rust.inyminutes.com" style="color:var(--blue)">Rust</a>, <a href="https://go.inyminutes.com" style="color:var(--blue)">Go</a>, and more at <a href="https://inyminutes.com" style="color:var(--blue)">inyminutes.com</a>.</p></div>
+</section>
+
+</article></div>
+
+<footer><div class="footer-inner">
+    <p>&copy; 2026 inyminutes.com</p>
+    <div class="footer-links">
+        <a href="https://inyminutes.com">All Tutorials</a>
+        <a href="https://agents-skills.com">Agents Skills</a>
+    </div>
+</div></footer>
+
+<script>
+function copyCode(btn){const code=btn.previousElementSibling.textContent;navigator.clipboard.writeText(code);btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',1500)}
+</script>
+</body>
+</html>

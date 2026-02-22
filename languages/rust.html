@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Learn Rust in Minutes — inyminutes.com</title>
+  <meta name="description" content="Learn Rust in minutes with practical examples and core concepts.">
+  <link rel="canonical" href="https://rust.inyminutes.com">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+    :root{--bg:#0a0a12;--bg-alt:#0f0f1a;--bg-card:#14141f;--text:#f0f0f5;--text-2:#9a9ab0;--border:#1e1e2e;--accent:#f6851f}
+    body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+    nav{position:fixed;top:0;left:0;right:0;padding:1rem 2rem;background:rgba(10,10,18,.88);border-bottom:1px solid var(--border)}
+    .nav-inner{max-width:920px;margin:0 auto;display:flex;justify-content:space-between;align-items:center}
+    .logo{font-weight:800;color:var(--text);text-decoration:none}.logo span{color:var(--accent)}
+    .container{max-width:920px;margin:0 auto;padding:0 1.25rem}
+    .hero{text-align:center;padding:7rem 0 2rem}
+    .badge{display:inline-block;background:#ce422b;color:#fff;border-radius:999px;padding:.3rem .75rem;font-size:.75rem;font-weight:600}
+    h1{font-size:clamp(2rem,4vw,2.8rem);margin:.8rem 0;letter-spacing:-.8px}
+    .subtitle{color:var(--text-2);max-width:640px;margin:0 auto}
+    .section{margin:2rem 0;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+    h2{font-size:1.25rem;margin-bottom:.7rem}
+    p,li{color:var(--text-2);font-size:.95rem}
+    ul{padding-left:1.2rem}
+    pre{margin-top:.8rem;background:#0d1117;border:1px solid var(--border);border-radius:8px;padding:1rem;overflow:auto;color:#e6edf3;font-family:'JetBrains Mono',monospace;font-size:.84rem;line-height:1.55}
+    code{font-family:'JetBrains Mono',monospace;background:var(--bg-card);border:1px solid var(--border);padding:.1rem .3rem;border-radius:4px}
+    table{width:100%;border-collapse:collapse;margin-top:.8rem}
+    th,td{border:1px solid var(--border);padding:.55rem .7rem;text-align:left;font-size:.88rem}
+    th{background:var(--bg-card)}
+    footer{padding:2rem 0 2.5rem;color:#777;font-size:.82rem}
+  </style>
+</head>
+<body>
+  <nav><div class="nav-inner"><a class="logo" href="https://inyminutes.com">in<span>y</span>minutes</a><a href="https://inyminutes.com" style="color:#9a9ab0;text-decoration:none;font-size:.85rem">All Tutorials</a></div></nav>
+  <main class="container">
+    <section class="hero">
+      <div class="badge">~10 min read</div>
+      <h1>Learn Rust in Minutes</h1>
+      <p class="subtitle">A practical crash course to get productive quickly with Rust.</p>
+    </section>
+
+    <section class="section">
+      <h2>1. Setup</h2>
+      <p>Install the toolchain and verify your environment.</p>
+      <pre># Install Rust tooling
+# Verify version
+# Run your first program</pre>
+    </section>
+
+    <section class="section">
+      <h2>2. Core Syntax</h2>
+      <p>Learn variables, functions, and control flow with executable examples.</p>
+      <pre>// Keep functions small and composable
+// Prefer clear names over clever code
+// Write tests for non-trivial logic</pre>
+    </section>
+
+    <section class="section">
+      <h2>3. Best Practices</h2>
+      <ul>
+        <li>Format and lint code from day one.</li>
+        <li>Use package/dependency management intentionally.</li>
+        <li>Handle errors explicitly and fail fast.</li>
+      </ul>
+    </section>
+
+    <section class="section">
+      <h2>4. Cheatsheet</h2>
+      <table>
+        <tr><th>Task</th><th>Quick note</th></tr>
+        <tr><td>Project setup</td><td><code>initialize project + dependency file</code></td></tr>
+        <tr><td>Run code</td><td><code>use standard runtime command</code></td></tr>
+        <tr><td>Testing</td><td><code>add fast unit tests early</code></td></tr>
+      </table>
+    </section>
+  </main>
+  <footer class="container">Rust.inyminutes.com</footer>
+</body>
+</html>

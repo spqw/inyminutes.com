@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>inyminutes.com — Learn Any Programming Language in Minutes</title>
+    <meta name="description" content="Learn Python, JavaScript, Rust, Go, Swift, Java, C++, Ruby, PHP, and C# in minutes. Fast, practical tutorials with code you can copy-paste and run.">
+    <meta property="og:title" content="inyminutes.com — Learn Any Programming Language in Minutes">
+    <meta property="og:description" content="Quick, practical programming tutorials. No setup, no fluff — just the concepts you need with real code examples.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://inyminutes.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="canonical" href="https://inyminutes.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+        :root {
+            --bg: #0a0a12;
+            --bg-alt: #0f0f1a;
+            --bg-card: #14141f;
+            --bg-card-hover: #1a1a28;
+            --text: #f0f0f5;
+            --text-2: #9a9ab0;
+            --text-3: #6b6b80;
+            --accent: #f6851f;
+            --accent-hover: #ff9a3c;
+            --accent-glow: rgba(246, 133, 31, 0.12);
+            --border: #1e1e2e;
+            --border-hover: #2a2a3d;
+        }
+        html { scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; -webkit-font-smoothing: antialiased; }
+
+        /* Nav */
+        nav { position: fixed; top: 0; width: 100%; z-index: 100; padding: 1rem 2rem; background: rgba(10,10,18,0.88); backdrop-filter: blur(20px); border-bottom: 1px solid var(--border); }
+        .nav-inner { max-width: 1080px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 1.25rem; font-weight: 800; letter-spacing: -0.5px; text-decoration: none; color: var(--text); }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 2rem; align-items: center; }
+        .nav-links a { color: var(--text-2); text-decoration: none; font-size: 0.85rem; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--text); }
+        .nav-cta { background: var(--accent); color: #fff !important; padding: 0.45rem 1.1rem; border-radius: 6px; font-weight: 600; font-size: 0.82rem !important; }
+        .nav-cta:hover { background: var(--accent-hover); }
+
+        .container { max-width: 1080px; margin: 0 auto; padding: 0 2rem; }
+
+        /* Hero */
+        .hero { text-align: center; padding: 10rem 2rem 4rem; position: relative; overflow: hidden; }
+        .hero::before { content: ''; position: absolute; top: -20%; left: 50%; transform: translateX(-50%); width: 900px; height: 900px; background: radial-gradient(circle, rgba(246,133,31,0.06) 0%, transparent 60%); pointer-events: none; }
+        .hero-badge { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.35rem 1rem; background: rgba(246,133,31,0.08); border: 1px solid rgba(246,133,31,0.15); border-radius: 20px; font-size: 0.78rem; font-weight: 600; color: var(--accent); margin-bottom: 1.5rem; }
+        .hero h1 { font-size: clamp(2.5rem, 6vw, 4rem); font-weight: 900; line-height: 1.1; letter-spacing: -2px; margin-bottom: 1.25rem; }
+        .hero h1 em { font-style: normal; background: linear-gradient(135deg, var(--accent), #ff6b6b); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .hero .subtitle { font-size: 1.15rem; color: var(--text-2); max-width: 580px; margin: 0 auto 2.5rem; line-height: 1.7; }
+        .hero-stats { display: flex; justify-content: center; gap: 3rem; margin-top: 2rem; }
+        .hero-stat { text-align: center; }
+        .hero-stat .num { font-size: 1.8rem; font-weight: 800; color: var(--text); letter-spacing: -1px; }
+        .hero-stat .label { font-size: 0.78rem; color: var(--text-3); font-weight: 500; margin-top: 0.2rem; }
+
+        /* Grid */
+        .section-header { text-align: center; margin-bottom: 2.5rem; }
+        .section-header h2 { font-size: 1.8rem; font-weight: 800; letter-spacing: -1px; margin-bottom: 0.5rem; }
+        .section-header p { color: var(--text-2); font-size: 1rem; }
+
+        .lang-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1rem; padding-bottom: 5rem; }
+
+        .lang-card {
+            background: var(--bg-card); border: 1px solid var(--border); border-radius: 14px;
+            padding: 1.75rem; transition: all 0.25s ease; text-decoration: none; color: inherit;
+            position: relative; overflow: hidden;
+        }
+        .lang-card:hover { background: var(--bg-card-hover); border-color: var(--border-hover); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(0,0,0,0.3); }
+        .lang-card .card-top { display: flex; align-items: center; gap: 1rem; margin-bottom: 0.75rem; }
+        .lang-card .icon { width: 44px; height: 44px; border-radius: 10px; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; flex-shrink: 0; }
+        .lang-card .card-top h3 { font-size: 1.15rem; font-weight: 700; }
+        .lang-card .card-top .time { font-size: 0.75rem; color: var(--accent); font-weight: 600; }
+        .lang-card p { color: var(--text-2); font-size: 0.88rem; line-height: 1.6; margin-bottom: 1rem; }
+        .lang-card .topics { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+        .lang-card .topic { font-size: 0.68rem; font-weight: 600; padding: 0.2rem 0.55rem; border-radius: 4px; }
+        .lang-card .arrow { position: absolute; top: 1.75rem; right: 1.75rem; color: var(--text-3); font-size: 1.1rem; transition: all 0.2s; }
+        .lang-card:hover .arrow { color: var(--accent); transform: translateX(4px); }
+
+        /* Card color themes */
+        .lang-card.python .icon { background: rgba(55,118,171,0.15); }
+        .lang-card.python .topic { background: rgba(55,118,171,0.12); color: #60a5fa; }
+        .lang-card.javascript .icon { background: rgba(247,223,30,0.12); }
+        .lang-card.javascript .topic { background: rgba(247,223,30,0.1); color: #fbbf24; }
+        .lang-card.rust .icon { background: rgba(222,106,43,0.12); }
+        .lang-card.rust .topic { background: rgba(222,106,43,0.1); color: #f97316; }
+        .lang-card.swift .icon { background: rgba(240,81,56,0.12); }
+        .lang-card.swift .topic { background: rgba(240,81,56,0.1); color: #f87171; }
+        .lang-card.go .icon { background: rgba(0,173,216,0.12); }
+        .lang-card.go .topic { background: rgba(0,173,216,0.1); color: #22d3ee; }
+        .lang-card.java .icon { background: rgba(248,152,32,0.12); }
+        .lang-card.java .topic { background: rgba(248,152,32,0.1); color: #fb923c; }
+        .lang-card.cpp .icon { background: rgba(0,89,156,0.12); }
+        .lang-card.cpp .topic { background: rgba(0,89,156,0.1); color: #60a5fa; }
+        .lang-card.ruby .icon { background: rgba(204,52,45,0.12); }
+        .lang-card.ruby .topic { background: rgba(204,52,45,0.1); color: #f87171; }
+        .lang-card.php .icon { background: rgba(119,123,179,0.12); }
+        .lang-card.php .topic { background: rgba(119,123,179,0.1); color: #a78bfa; }
+        .lang-card.csharp .icon { background: rgba(104,33,122,0.12); }
+        .lang-card.csharp .topic { background: rgba(104,33,122,0.1); color: #c084fc; }
+
+        /* How it works */
+        .how-section { padding: 4rem 0; border-top: 1px solid var(--border); margin-bottom: 4rem; }
+        .how-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2.5rem; }
+        .how-card { text-align: center; padding: 2rem 1.5rem; }
+        .how-card .step { display: inline-flex; align-items: center; justify-content: center; width: 48px; height: 48px; border-radius: 12px; background: var(--accent-glow); border: 1px solid rgba(246,133,31,0.2); color: var(--accent); font-size: 1.2rem; font-weight: 800; margin-bottom: 1rem; }
+        .how-card h3 { font-size: 1.05rem; font-weight: 700; margin-bottom: 0.5rem; }
+        .how-card p { color: var(--text-2); font-size: 0.88rem; line-height: 1.6; }
+
+        /* Footer */
+        footer { border-top: 1px solid var(--border); padding: 2.5rem 2rem; }
+        .footer-inner { max-width: 1080px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+        .footer-inner p { color: var(--text-3); font-size: 0.8rem; }
+        .footer-links { display: flex; gap: 1.25rem; }
+        .footer-links a { color: var(--text-3); text-decoration: none; font-size: 0.8rem; transition: color 0.2s; }
+        .footer-links a:hover { color: var(--text-2); }
+
+        @media (max-width: 768px) {
+            .nav-links { display: none; }
+            .hero { padding-top: 7rem; }
+            .hero-stats { gap: 1.5rem; }
+            .lang-grid { grid-template-columns: 1fr; }
+            .how-grid { grid-template-columns: 1fr; gap: 1rem; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-inner">
+        <a href="/" class="logo">in<span>y</span>minutes</a>
+        <div class="nav-links">
+            <a href="#languages">Languages</a>
+            <a href="#how">How It Works</a>
+            <a href="https://github.com/spqw" target="_blank">GitHub</a>
+        </div>
+    </div>
+</nav>
+
+<section class="hero">
+    <div class="container">
+        <div class="hero-badge">Fast, free, no sign-up</div>
+        <h1>Learn any language<br><em>in minutes</em></h1>
+        <p class="subtitle">Concise, practical programming tutorials with real code examples. Pick a language, read for 10 minutes, start building.</p>
+        <div class="hero-stats">
+            <div class="hero-stat">
+                <div class="num">10</div>
+                <div class="label">Languages</div>
+            </div>
+            <div class="hero-stat">
+                <div class="num">~10 min</div>
+                <div class="label">Per tutorial</div>
+            </div>
+            <div class="hero-stat">
+                <div class="num">100%</div>
+                <div class="label">Free</div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<div class="container" id="languages">
+    <div class="section-header">
+        <h2>Pick a Language</h2>
+        <p>Each tutorial covers the essentials — syntax, data structures, control flow, and practical patterns.</p>
+    </div>
+
+    <div class="lang-grid">
+        <a href="https://python.inyminutes.com" class="lang-card python">
+            <span class="arrow">&rarr;</span>
+            <div class="card-top">
+                <div class="icon">&#x1f40d;</div>
+                <div><h3>Python</h3><div class="time">~10 min</div></div>
+            </div>
+            <p>The most popular language for beginners, data science, and automation. Clean syntax, massive ecosystem.</p>
+            <div class="topics">
+                <span class="topic">Variables</span>
+                <span class="topic">Functions</span>
+                <span class="topic">Classes</span>
+                <span class="topic">List Comprehensions</span>
+                <span class="topic">Decorators</span>
+            </div>
+        </a>
+
+        <a href="https://javascript.inyminutes.com" class="lang-card javascript">
+            <span class="arrow">&rarr;</span>
+            <div class="card-top">
+                <div class="icon">&#x26a1;</div>
+                <div><h3>JavaScript</h3><div class="time">~10 min</div></div>
+            </div>
+            <p>The language of the web. Runs everywhere — browsers, servers, mobile apps, and beyond.</p>
+            <div class="topics">
+                <span class="topic">ES6+</span>
+                <span class="topic">Async/Await</span>
+                <span class="topic">Closures</span>
+                <span class="topic">Prototypes</span>
+                <span class="topic">Modules</span>
+            </div>
+        </a>
+
+        <a href="https://rust.inyminutes.com" class="lang-card rust">
+            <span class="arrow">&rarr;</span>
+            <div class="card-top">
+                <div class="icon">&#x2699;&#xfe0f;</div>
+                <div><h3>Rust</h3><div class="time">~12 min</div></div>
+            </div>
+            <p>Memory safety without garbage collection. Systems programming for the modern era.</p>
+            <div class="topics">
+                <span class="topic">Ownership</span>
+                <span class="topic">Borrowing</span>
+                <span class="topic">Enums</span>
+                <span class="topic">Pattern Matching</span>
+                <span class="topic">Traits</span>
+            </div>
+        </a>
+
+        <a href="https://swift.inyminutes.com" class="lang-card swift">
+            <span class="arrow">&rarr;</span>
+            <div class="card-top">
+                <div class="icon">&#x1f426;</div>
+                <div><h3>Swift</h3><div class="time">~10 min</div></div>
+            </div>
+            <p>Apple's modern language for iOS, macOS, and beyond. Safe, fast, and expressive.</p>
+            <div class="topics">
+                <span class="topic">Optionals</span>
+                <span class="topic">Structs</span>
+                <span class="topic">Protocols</span>
+                <span class="topic">Closures</span>
+                <span class="topic">Enums</span>
+            </div>
+        </a>
+
+        <a href="https://go.inyminutes.com" class="lang-card go">
+            <span class="arrow">&rarr;</span>
+            <div class="card-top">
+                <div class="icon">&#x1f439;</div>
+                <div><h3>Go</h3><div class="time">~10 min</div></div>
+            </div>
+            <p>Simple, fast, concurrent. Built at Google for cloud infrastructure and microservices.</p>
+            <div class="topics">
+                <span class="topic">Goroutines</span>
+                <span class="topic">Channels</span>
+                <span class="topic">Interfaces</span>
+                <span class="topic">Structs</span>
+                <span class="topic">Error Handling</span>
+            </div>
+        </a>
+
+        <a href="https://java.inyminutes.com" class="lang-card java">
+            <span class="arrow">&rarr;</span>
+            <div class="card-top">
+                <div class="icon">&#x2615;</div>
+                <div><h3>Java</h3><div class="time">~10 min</div></div>
+            </div>
+            <p>Enterprise powerhouse. Write once, run anywhere. Still dominating backend and Android.</p>
+            <div class="topics">
+                <span class="topic">OOP</span>
+                <span class="topic">Generics</span>
+                <span class="topic">Streams</span>
+                <span class="topic">Collections</span>
+                <span class="topic">Interfaces</span>
+            </div>
+        </a>
+
+        <a href="https://cpp.inyminutes.com" class="lang-card cpp">
+            <span class="arrow">&rarr;</span>
+            <div class="card-top">
+                <div class="icon">&#x1f9f1;</div>
+                <div><h3>C++</h3><div class="time">~12 min</div></div>
+            </div>
+            <p>High performance, close to the metal. Game engines, embedded systems, competitive programming.</p>
+            <div class="topics">
+                <span class="topic">Pointers</span>
+                <span class="topic">RAII</span>
+                <span class="topic">Templates</span>
+                <span class="topic">STL</span>
+                <span class="topic">Smart Pointers</span>
+            </div>
+        </a>
+
+        <a href="https://ruby.inyminutes.com" class="lang-card ruby">
+            <span class="arrow">&rarr;</span>
+            <div class="card-top">
+                <div class="icon">&#x1f48e;</div>
+                <div><h3>Ruby</h3><div class="time">~10 min</div></div>
+            </div>
+            <p>Designed for developer happiness. Elegant syntax, powerful metaprogramming, Rails framework.</p>
+            <div class="topics">
+                <span class="topic">Blocks</span>
+                <span class="topic">Symbols</span>
+                <span class="topic">Mixins</span>
+                <span class="topic">Procs</span>
+                <span class="topic">Classes</span>
+            </div>
+        </a>
+
+        <a href="https://php.inyminutes.com" class="lang-card php">
+            <span class="arrow">&rarr;</span>
+            <div class="card-top">
+                <div class="icon">&#x1f418;</div>
+                <div><h3>PHP</h3><div class="time">~10 min</div></div>
+            </div>
+            <p>Powers 77% of the web. WordPress, Laravel, and millions of production applications.</p>
+            <div class="topics">
+                <span class="topic">Arrays</span>
+                <span class="topic">Classes</span>
+                <span class="topic">Namespaces</span>
+                <span class="topic">Type Hints</span>
+                <span class="topic">Traits</span>
+            </div>
+        </a>
+
+        <a href="https://csharp.inyminutes.com" class="lang-card csharp">
+            <span class="arrow">&rarr;</span>
+            <div class="card-top">
+                <div class="icon">&#x1f7e3;</div>
+                <div><h3>C#</h3><div class="time">~10 min</div></div>
+            </div>
+            <p>Microsoft's modern workhorse. Unity game dev, .NET web APIs, desktop apps, and cloud services.</p>
+            <div class="topics">
+                <span class="topic">LINQ</span>
+                <span class="topic">Async/Await</span>
+                <span class="topic">Generics</span>
+                <span class="topic">Properties</span>
+                <span class="topic">Records</span>
+            </div>
+        </a>
+    </div>
+</div>
+
+<section class="how-section" id="how">
+    <div class="container">
+        <div class="section-header">
+            <h2>How It Works</h2>
+            <p>No accounts, no installs, no BS.</p>
+        </div>
+        <div class="how-grid">
+            <div class="how-card">
+                <div class="step">1</div>
+                <h3>Pick a language</h3>
+                <p>Choose from 10 popular programming languages. Each tutorial is self-contained.</p>
+            </div>
+            <div class="how-card">
+                <div class="step">2</div>
+                <h3>Read for 10 minutes</h3>
+                <p>Concise explanations with real code. Every example is copy-pasteable and runnable.</p>
+            </div>
+            <div class="how-card">
+                <div class="step">3</div>
+                <h3>Start building</h3>
+                <p>You now know enough to write real code. Build something, google the rest.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<footer>
+    <div class="footer-inner">
+        <p>&copy; 2026 inyminutes.com</p>
+        <div class="footer-links">
+            <a href="https://agents-skills.com">Agents Skills</a>
+            <a href="https://github.com/spqw" target="_blank">GitHub</a>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>
