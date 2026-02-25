@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Learn pnpm in Minutes — inyminutes.com</title>
+    <meta name="description" content="Learn pnpm in minutes. Install packages, manage workspaces, run scripts — practical examples you can copy and use immediately.">
+    <link rel="canonical" href="https://pnpm.inyminutes.com">
+    <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}:root{--bg:#0a0a12;--bg-alt:#0f0f1a;--bg-card:#14141f;--text:#f0f0f5;--text-2:#9a9ab0;--text-3:#6b6b80;--accent:#f6851f;--accent-hover:#ff9a3c;--border:#1e1e2e;--blue:#6b8afd}html{scroll-behavior:smooth}body{font-family:'Inter',-apple-system,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}nav{position:fixed;top:0;width:100%;z-index:100;padding:1rem 2rem;background:rgba(10,10,18,0.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}.nav-inner{max-width:960px;margin:0 auto;display:flex;align-items:center;justify-content:space-between}.logo{font-size:1.2rem;font-weight:800;letter-spacing:-0.5px;text-decoration:none;color:var(--text)}.logo span{color:var(--accent)}.nav-links{display:flex;gap:1.5rem;align-items:center}.nav-links a{color:var(--text-2);text-decoration:none;font-size:0.85rem;font-weight:500}.container{max-width:960px;margin:0 auto;padding:0 2rem}.hero{text-align:center;padding:8rem 2rem 2rem;position:relative}.hero::before{content:'';position:absolute;top:-30%;left:50%;transform:translateX(-50%);width:700px;height:700px;background:radial-gradient(circle,rgba(246,133,31,0.07) 0%,transparent 65%);pointer-events:none}.hero .badge{display:inline-block;padding:0.3rem 0.85rem;background:rgba(247,223,30,0.12);color:#fbbf24;font-size:0.75rem;font-weight:600;border-radius:20px;margin-bottom:1rem}.hero h1{font-size:clamp(2rem,5vw,3rem);font-weight:800;line-height:1.15;letter-spacing:-1.5px;margin-bottom:1rem}.hero h1 em{font-style:normal;color:var(--accent)}.hero .subtitle{font-size:1.05rem;color:var(--text-2);max-width:600px;margin:0 auto;line-height:1.65}.progress-nav{position:sticky;top:60px;z-index:50;background:var(--bg-alt);border-bottom:1px solid var(--border);padding:0.75rem 0;margin-bottom:2rem}.progress-inner{max-width:960px;margin:0 auto;padding:0 2rem;display:flex;gap:0.4rem;overflow-x:auto;scrollbar-width:none}.progress-inner::-webkit-scrollbar{display:none}.progress-inner a{color:var(--text-3);text-decoration:none;font-size:0.7rem;font-weight:600;padding:0.3rem 0.65rem;border-radius:4px;white-space:nowrap;transition:all 0.2s;border:1px solid transparent}.progress-inner a:hover{color:var(--text);background:var(--bg-card);border-color:var(--border)}.article{padding-bottom:4rem}.section{margin-bottom:3.5rem}.section h2{font-size:1.5rem;font-weight:700;letter-spacing:-0.5px;margin-bottom:1rem;padding-bottom:0.5rem;border-bottom:1px solid var(--border)}.section h2 .num{color:var(--accent);font-size:0.85rem;font-weight:600;margin-right:0.5rem}.section h3{font-size:1.1rem;font-weight:600;margin:1.5rem 0 0.75rem}.section p{color:var(--text-2);font-size:0.92rem;line-height:1.7;margin-bottom:1rem}.section ul{color:var(--text-2);font-size:0.92rem;line-height:1.7;margin-bottom:1rem;padding-left:1.5rem}.section li{margin-bottom:0.35rem}.section code{font-family:'JetBrains Mono',monospace;font-size:0.82rem;background:var(--bg-card);padding:0.15rem 0.45rem;border-radius:4px;color:#ffa657;border:1px solid var(--border)}.section strong{color:var(--text);font-weight:600}.code-block{position:relative;margin:1rem 0 1.5rem}.code-block pre{background:#0d1117;border:1px solid var(--border);border-radius:8px;padding:1rem;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:0.85rem;line-height:1.6;color:#e6edf3}.code-block .copy-btn{position:absolute;top:0.5rem;right:0.5rem;background:var(--bg-card);border:1px solid var(--border);color:var(--text-3);padding:0.25rem 0.6rem;border-radius:4px;font-size:0.7rem;cursor:pointer;font-family:inherit;transition:all 0.2s}.code-block .copy-btn:hover{color:var(--text);border-color:var(--text-3)}.kw{color:#ff7b72}.str{color:#a5d6ff}.typ{color:#ffa657}.cmt{color:#8b949e}.fn{color:#d2a8ff}.num{color:#79c0ff}.op{color:#ff7b72}.flag{color:#79c0ff}.info-box{background:var(--bg-card);border:1px solid var(--border);border-radius:8px;padding:1rem 1.25rem;margin:1rem 0 1.5rem;border-left:3px solid var(--blue)}.info-box p{margin-bottom:0;color:var(--text-2);font-size:0.88rem}.cheatsheet-table{width:100%;border-collapse:collapse;margin:1rem 0 1.5rem;font-size:0.88rem}.cheatsheet-table th{text-align:left;padding:0.75rem 1rem;background:var(--bg-card);border:1px solid var(--border);color:var(--text);font-weight:600;font-size:0.8rem;text-transform:uppercase;letter-spacing:0.5px}.cheatsheet-table td{padding:0.6rem 1rem;border:1px solid var(--border);color:var(--text-2);vertical-align:top}.cheatsheet-table td code{font-family:'JetBrains Mono',monospace;font-size:0.8rem;background:#0d1117;padding:0.15rem 0.4rem;border-radius:3px;color:#ffa657;border:1px solid var(--border)}.cheatsheet-table tr:hover td{background:var(--bg-card)}footer{border-top:1px solid var(--border);padding:2.5rem 2rem}.footer-inner{max-width:960px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1rem}.footer-inner p{color:var(--text-3);font-size:0.8rem}.footer-links{display:flex;gap:1.25rem}.footer-links a{color:var(--text-3);text-decoration:none;font-size:0.8rem}@media(max-width:768px){.nav-links{display:none}.hero{padding-top:6rem}.progress-nav{top:53px}}
+    </style>
+</head>
+<body>
+<nav><div class="nav-inner"><a href="https://inyminutes.com" class="logo">in<span>y</span>minutes</a><div class="nav-links"><a href="https://inyminutes.com">All Tutorials</a></div></div></nav>
+
+<section class="hero"><div class="container">
+    <div class="badge">~10 min read</div>
+    <h1>Learn <em>pnpm</em> in Minutes</h1>
+    <p class="subtitle">The fast, disk-efficient package manager for Node.js. Install packages, manage workspaces, and run scripts — with practical examples.</p>
+</div></section>
+
+<div class="progress-nav"><div class="progress-inner">
+    <a href="#intro">What is pnpm?</a><a href="#install">Install</a><a href="#basics">Basics</a><a href="#scripts">Scripts</a><a href="#global">Global</a><a href="#workspaces">Workspaces</a><a href="#lockfile">Lockfile</a><a href="#advanced">Advanced</a><a href="#migration">Migration</a><a href="#cheatsheet">Cheatsheet</a>
+</div></div>
+
+<div class="container"><article class="article">
+
+<section class="section" id="intro">
+    <h2><span class="num">01</span> What is pnpm?</h2>
+    <p><strong>pnpm</strong> (performant npm) is a package manager for Node.js that stores packages in a global content-addressable store and hard-links them into your project. This means faster installs, less disk usage, and strict dependency isolation.</p>
+    <ul>
+        <li><strong>Fast</strong> &mdash; installs are 2-3x faster than npm due to hard linking and parallel resolution.</li>
+        <li><strong>Disk efficient</strong> &mdash; packages are stored once globally, saving up to 70% disk space.</li>
+        <li><strong>Strict</strong> &mdash; you can only import packages you explicitly declare (no phantom dependencies).</li>
+        <li><strong>Monorepo-ready</strong> &mdash; built-in workspace support with powerful filtering.</li>
+    </ul>
+</section>
+
+<section class="section" id="install">
+    <h2><span class="num">02</span> Installation</h2>
+    <div class="code-block"><pre><span class="cmt"># Option 1: Using corepack (recommended, ships with Node.js 16.13+)</span>
+<span class="fn">corepack</span> enable pnpm
+
+<span class="cmt"># Option 2: Using npm</span>
+<span class="fn">npm</span> install <span class="flag">-g</span> pnpm
+
+<span class="cmt"># Option 3: Standalone script (no Node.js required)</span>
+<span class="fn">curl</span> <span class="flag">-fsSL</span> https://get.pnpm.io/install.sh | sh -
+
+<span class="cmt"># Verify installation</span>
+<span class="fn">pnpm</span> <span class="flag">--version</span>           <span class="cmt"># e.g. 10.5.0</span>
+
+<span class="cmt"># Pin pnpm version in your project (corepack)</span>
+<span class="fn">corepack</span> use pnpm@latest</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="info-box"><p><strong>Tip:</strong> With corepack, each project can specify its own pnpm version in <code>package.json</code> under <code>"packageManager": "pnpm@10.5.0"</code>. Teammates automatically get the right version.</p></div>
+</section>
+
+<section class="section" id="basics">
+    <h2><span class="num">03</span> Package Management Basics</h2>
+    <h3>Installing dependencies</h3>
+    <div class="code-block"><pre><span class="cmt"># Install all dependencies from package.json</span>
+<span class="fn">pnpm</span> install
+
+<span class="cmt"># Add a production dependency</span>
+<span class="fn">pnpm</span> add react
+
+<span class="cmt"># Add a dev dependency</span>
+<span class="fn">pnpm</span> add <span class="flag">-D</span> typescript @types/react
+
+<span class="cmt"># Add an exact version (no ^ or ~)</span>
+<span class="fn">pnpm</span> add <span class="flag">-E</span> lodash@4.17.21
+
+<span class="cmt"># Add an optional dependency</span>
+<span class="fn">pnpm</span> add <span class="flag">-O</span> fsevents</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>Removing and updating</h3>
+    <div class="code-block"><pre><span class="cmt"># Remove a package</span>
+<span class="fn">pnpm</span> remove lodash
+
+<span class="cmt"># Update a specific package</span>
+<span class="fn">pnpm</span> update react
+
+<span class="cmt"># Update all packages (respecting semver ranges)</span>
+<span class="fn">pnpm</span> update
+
+<span class="cmt"># Update all packages to latest (ignore semver ranges)</span>
+<span class="fn">pnpm</span> update <span class="flag">--latest</span>
+
+<span class="cmt"># Check for outdated packages</span>
+<span class="fn">pnpm</span> outdated</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>Inspecting dependencies</h3>
+    <div class="code-block"><pre><span class="cmt"># List installed packages</span>
+<span class="fn">pnpm</span> list
+
+<span class="cmt"># List top-level only (no transitive)</span>
+<span class="fn">pnpm</span> list <span class="flag">--depth 0</span>
+
+<span class="cmt"># Why is a package installed?</span>
+<span class="fn">pnpm</span> why react-dom
+
+<span class="cmt"># Check for known vulnerabilities</span>
+<span class="fn">pnpm</span> audit</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="scripts">
+    <h2><span class="num">04</span> Running Scripts</h2>
+    <div class="code-block"><pre><span class="cmt"># Run a script from package.json (no "run" needed)</span>
+<span class="fn">pnpm</span> build
+<span class="fn">pnpm</span> test
+<span class="fn">pnpm</span> dev
+
+<span class="cmt"># Explicit "run" also works</span>
+<span class="fn">pnpm</span> run build
+
+<span class="cmt"># Pass arguments to a script</span>
+<span class="fn">pnpm</span> test <span class="flag">-- --watch</span>
+
+<span class="cmt"># Execute a package binary (like npx)</span>
+<span class="fn">pnpm</span> dlx create-next-app my-app
+<span class="fn">pnpm</span> dlx degit user/repo my-project
+
+<span class="cmt"># Run a local binary from node_modules/.bin</span>
+<span class="fn">pnpm</span> exec tsc <span class="flag">--noEmit</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="info-box"><p><strong>Key difference:</strong> <code>pnpm dlx</code> = <code>npx</code> (download and execute). <code>pnpm exec</code> = run a binary already installed in node_modules.</p></div>
+</section>
+
+<section class="section" id="global">
+    <h2><span class="num">05</span> Global Packages &amp; Store</h2>
+    <div class="code-block"><pre><span class="cmt"># Install a package globally</span>
+<span class="fn">pnpm</span> add <span class="flag">-g</span> typescript tsx serve
+
+<span class="cmt"># List global packages</span>
+<span class="fn">pnpm</span> list <span class="flag">-g</span>
+
+<span class="cmt"># Remove a global package</span>
+<span class="fn">pnpm</span> remove <span class="flag">-g</span> serve
+
+<span class="cmt"># View the global store path</span>
+<span class="fn">pnpm</span> store path
+
+<span class="cmt"># Clean up unreferenced packages from the store</span>
+<span class="fn">pnpm</span> store prune
+
+<span class="cmt"># Check store integrity</span>
+<span class="fn">pnpm</span> store status</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="workspaces">
+    <h2><span class="num">06</span> Workspaces (Monorepos)</h2>
+    <p>pnpm has built-in monorepo support. Create a <code>pnpm-workspace.yaml</code> at the repo root:</p>
+    <div class="code-block"><pre><span class="cmt"># pnpm-workspace.yaml</span>
+<span class="typ">packages</span>:
+  - <span class="str">'apps/*'</span>
+  - <span class="str">'packages/*'</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>Working with workspaces</h3>
+    <div class="code-block"><pre><span class="cmt"># Install all dependencies for all workspace packages</span>
+<span class="fn">pnpm</span> install
+
+<span class="cmt"># Add a dependency to a specific package</span>
+<span class="fn">pnpm</span> add react <span class="flag">--filter</span> @myorg/web
+
+<span class="cmt"># Link a workspace package as a dependency</span>
+<span class="fn">pnpm</span> add @myorg/shared@<span class="str">workspace:*</span> <span class="flag">--filter</span> @myorg/web
+
+<span class="cmt"># Run a script in a specific package</span>
+<span class="fn">pnpm</span> <span class="flag">--filter</span> @myorg/web dev
+
+<span class="cmt"># Run a script in all packages</span>
+<span class="fn">pnpm</span> <span class="flag">-r</span> build
+
+<span class="cmt"># Run in all packages that match a pattern</span>
+<span class="fn">pnpm</span> <span class="flag">--filter</span> <span class="str">"./packages/**"</span> test
+
+<span class="cmt"># Run only in packages changed since last commit</span>
+<span class="fn">pnpm</span> <span class="flag">--filter</span> <span class="str">"...[HEAD~1]"</span> build
+
+<span class="cmt"># Add a dependency to the root workspace</span>
+<span class="fn">pnpm</span> add <span class="flag">-w</span> typescript</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="info-box"><p><strong>Tip:</strong> <code>workspace:*</code> always resolves to the local version. When publishing, pnpm replaces it with the actual version number automatically.</p></div>
+</section>
+
+<section class="section" id="lockfile">
+    <h2><span class="num">07</span> Lockfile &amp; CI</h2>
+    <div class="code-block"><pre><span class="cmt"># Install with frozen lockfile (CI mode — fails if lockfile is outdated)</span>
+<span class="fn">pnpm</span> install <span class="flag">--frozen-lockfile</span>
+
+<span class="cmt"># Import lockfile from npm or yarn</span>
+<span class="fn">pnpm</span> import
+
+<span class="cmt"># Generate lockfile without installing</span>
+<span class="fn">pnpm</span> install <span class="flag">--lockfile-only</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>GitHub Actions example</h3>
+    <div class="code-block"><pre><span class="cmt"># .github/workflows/ci.yml</span>
+<span class="typ">steps</span>:
+  - <span class="typ">uses</span>: actions/checkout@v4
+  - <span class="typ">uses</span>: pnpm/action-setup@v4
+  - <span class="typ">uses</span>: actions/setup-node@v4
+    <span class="typ">with</span>:
+      <span class="typ">node-version</span>: <span class="num">22</span>
+      <span class="typ">cache</span>: <span class="str">'pnpm'</span>
+  - <span class="typ">run</span>: pnpm install --frozen-lockfile
+  - <span class="typ">run</span>: pnpm build
+  - <span class="typ">run</span>: pnpm test</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="advanced">
+    <h2><span class="num">08</span> Advanced Features</h2>
+
+    <h3>Patching dependencies</h3>
+    <div class="code-block"><pre><span class="cmt"># Create a patch for a package (opens editable copy)</span>
+<span class="fn">pnpm</span> patch express
+
+<span class="cmt"># After editing, commit the patch</span>
+<span class="fn">pnpm</span> patch-commit ./path-to-modified-package</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>Overrides (force dependency versions)</h3>
+    <div class="code-block"><pre><span class="cmt">// package.json — force all lodash to 4.17.21</span>
+{
+  <span class="str">"pnpm"</span>: {
+    <span class="str">"overrides"</span>: {
+      <span class="str">"lodash"</span>: <span class="str">"4.17.21"</span>,
+      <span class="str">"foo>bar"</span>: <span class="str">"2.0.0"</span>
+    }
+  }
+}</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>Configuration (.npmrc)</h3>
+    <div class="code-block"><pre><span class="cmt"># .npmrc — project-level pnpm configuration</span>
+
+<span class="cmt"># Auto-install peers (default in pnpm 8+)</span>
+<span class="typ">auto-install-peers</span>=<span class="num">true</span>
+
+<span class="cmt"># Hoist specific packages (escape hatch for tools that need flat node_modules)</span>
+<span class="typ">public-hoist-pattern</span>[]=<span class="str">*eslint*</span>
+<span class="typ">public-hoist-pattern</span>[]=<span class="str">*prettier*</span>
+
+<span class="cmt"># Shamefully hoist everything (not recommended, but useful for migration)</span>
+<span class="typ">shamefully-hoist</span>=<span class="num">true</span>
+
+<span class="cmt"># Use a specific Node.js version via pnpm env</span>
+<span class="typ">use-node-version</span>=<span class="str">22.0.0</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+
+    <h3>Manage Node.js versions</h3>
+    <div class="code-block"><pre><span class="cmt"># Install and use a specific Node.js version</span>
+<span class="fn">pnpm</span> env use <span class="flag">--global</span> <span class="num">22</span>
+
+<span class="cmt"># List installed Node.js versions</span>
+<span class="fn">pnpm</span> env list
+
+<span class="cmt"># Remove a Node.js version</span>
+<span class="fn">pnpm</span> env remove <span class="flag">--global</span> <span class="num">20</span></pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+</section>
+
+<section class="section" id="migration">
+    <h2><span class="num">09</span> Migrating from npm / Yarn</h2>
+    <div class="code-block"><pre><span class="cmt"># Step 1: Install pnpm</span>
+<span class="fn">corepack</span> enable pnpm
+
+<span class="cmt"># Step 2: Remove old artifacts</span>
+<span class="fn">rm</span> <span class="flag">-rf</span> node_modules package-lock.json yarn.lock
+
+<span class="cmt"># Step 3: Install with pnpm (generates pnpm-lock.yaml)</span>
+<span class="fn">pnpm</span> install
+
+<span class="cmt"># Or import an existing lockfile first</span>
+<span class="fn">pnpm</span> import       <span class="cmt"># reads package-lock.json or yarn.lock</span>
+<span class="fn">pnpm</span> install</pre><button class="copy-btn" onclick="copyCode(this)">Copy</button></div>
+    <div class="info-box"><p><strong>Expect:</strong> After switching, you may see errors for phantom dependencies — packages your code imports but doesn't declare in package.json. Fix these by adding them explicitly: <code>pnpm add missing-package</code>. This is pnpm catching real bugs.</p></div>
+
+    <h3>npm → pnpm command mapping</h3>
+    <table class="cheatsheet-table">
+        <thead><tr><th>npm</th><th>pnpm</th></tr></thead>
+        <tbody>
+            <tr><td><code>npm install</code></td><td><code>pnpm install</code></td></tr>
+            <tr><td><code>npm i react</code></td><td><code>pnpm add react</code></td></tr>
+            <tr><td><code>npm uninstall react</code></td><td><code>pnpm remove react</code></td></tr>
+            <tr><td><code>npm run build</code></td><td><code>pnpm build</code></td></tr>
+            <tr><td><code>npx create-next-app</code></td><td><code>pnpm dlx create-next-app</code></td></tr>
+            <tr><td><code>npm ci</code></td><td><code>pnpm install --frozen-lockfile</code></td></tr>
+            <tr><td><code>npm audit</code></td><td><code>pnpm audit</code></td></tr>
+            <tr><td><code>npm update</code></td><td><code>pnpm update</code></td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section class="section" id="cheatsheet">
+    <h2><span class="num">10</span> Cheatsheet</h2>
+    <table class="cheatsheet-table">
+        <thead><tr><th>Command</th><th>What it does</th></tr></thead>
+        <tbody>
+            <tr><td><code>pnpm install</code></td><td>Install all dependencies</td></tr>
+            <tr><td><code>pnpm add pkg</code></td><td>Add a production dependency</td></tr>
+            <tr><td><code>pnpm add -D pkg</code></td><td>Add a dev dependency</td></tr>
+            <tr><td><code>pnpm remove pkg</code></td><td>Remove a package</td></tr>
+            <tr><td><code>pnpm update</code></td><td>Update packages within semver range</td></tr>
+            <tr><td><code>pnpm update --latest</code></td><td>Update to absolute latest</td></tr>
+            <tr><td><code>pnpm outdated</code></td><td>List outdated packages</td></tr>
+            <tr><td><code>pnpm why pkg</code></td><td>Show why a package is installed</td></tr>
+            <tr><td><code>pnpm list --depth 0</code></td><td>List direct dependencies</td></tr>
+            <tr><td><code>pnpm dlx pkg</code></td><td>Download and execute (like npx)</td></tr>
+            <tr><td><code>pnpm exec cmd</code></td><td>Run a locally installed binary</td></tr>
+            <tr><td><code>pnpm -r cmd</code></td><td>Run recursively in all workspaces</td></tr>
+            <tr><td><code>pnpm --filter name cmd</code></td><td>Run in a specific workspace package</td></tr>
+            <tr><td><code>pnpm store prune</code></td><td>Clean unused packages from store</td></tr>
+            <tr><td><code>pnpm patch pkg</code></td><td>Create an editable patch for a package</td></tr>
+            <tr><td><code>pnpm env use -g 22</code></td><td>Switch Node.js version</td></tr>
+        </tbody>
+    </table>
+</section>
+
+</article></div>
+
+<footer><div class="footer-inner">
+    <p>&copy; 2026 pnpm.inyminutes.com</p>
+    <div class="footer-links">
+        <a href="https://inyminutes.com">All Tutorials</a>
+        <a href="https://pnpm.io" target="_blank">pnpm Docs</a>
+    </div>
+</div></footer>
+
+<script>
+function copyCode(btn){const code=btn.previousElementSibling.textContent;navigator.clipboard.writeText(code).then(()=>{btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',1500)}).catch(()=>{btn.textContent='Error';setTimeout(()=>btn.textContent='Copy',1500)})}
+</script>
+
+</body>
+</html>

@@ -19,7 +19,7 @@ services:
       - traefik.http.routers.inyminutes-http-root.entrypoints=http
       - traefik.http.routers.inyminutes-http-root.middlewares=inyminutes-https
 
-      - traefik.http.routers.inyminutes-http-sub.rule=Host(`python.inyminutes.com`) || Host(`javascript.inyminutes.com`) || Host(`rust.inyminutes.com`) || Host(`swift.inyminutes.com`) || Host(`go.inyminutes.com`) || Host(`java.inyminutes.com`) || Host(`cpp.inyminutes.com`) || Host(`ruby.inyminutes.com`) || Host(`php.inyminutes.com`) || Host(`csharp.inyminutes.com`) || Host(`croissant.inyminutes.com`)
+      - traefik.http.routers.inyminutes-http-sub.rule=Host(`python.inyminutes.com`) || Host(`javascript.inyminutes.com`) || Host(`rust.inyminutes.com`) || Host(`swift.inyminutes.com`) || Host(`go.inyminutes.com`) || Host(`java.inyminutes.com`) || Host(`cpp.inyminutes.com`) || Host(`ruby.inyminutes.com`) || Host(`php.inyminutes.com`) || Host(`csharp.inyminutes.com`) || Host(`croissant.inyminutes.com`) || Host(`pnpm.inyminutes.com`)
       - traefik.http.routers.inyminutes-http-sub.entrypoints=http
       - traefik.http.routers.inyminutes-http-sub.middlewares=inyminutes-https
 
@@ -29,7 +29,7 @@ services:
       - traefik.http.routers.inyminutes-https-root.tls=true
       - traefik.http.routers.inyminutes-https-root.tls.certresolver=letsencrypt
 
-      - traefik.http.routers.inyminutes-https-sub.rule=Host(`python.inyminutes.com`) || Host(`javascript.inyminutes.com`) || Host(`rust.inyminutes.com`) || Host(`swift.inyminutes.com`) || Host(`go.inyminutes.com`) || Host(`java.inyminutes.com`) || Host(`cpp.inyminutes.com`) || Host(`ruby.inyminutes.com`) || Host(`php.inyminutes.com`) || Host(`csharp.inyminutes.com`) || Host(`croissant.inyminutes.com`)
+      - traefik.http.routers.inyminutes-https-sub.rule=Host(`python.inyminutes.com`) || Host(`javascript.inyminutes.com`) || Host(`rust.inyminutes.com`) || Host(`swift.inyminutes.com`) || Host(`go.inyminutes.com`) || Host(`java.inyminutes.com`) || Host(`cpp.inyminutes.com`) || Host(`ruby.inyminutes.com`) || Host(`php.inyminutes.com`) || Host(`csharp.inyminutes.com`) || Host(`croissant.inyminutes.com`) || Host(`pnpm.inyminutes.com`)
       - traefik.http.routers.inyminutes-https-sub.entrypoints=https
       - traefik.http.routers.inyminutes-https-sub.tls=true
       - traefik.http.routers.inyminutes-https-sub.tls.certresolver=letsencrypt
